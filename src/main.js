@@ -2,10 +2,10 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import Vuex from 'vuex'
 import 'es6-promise/auto'
+import vSelect from 'vue-select'
 
-Vue.use(Vuex)
+Vue.component('v-select', vSelect)
 
 Vue.config.productionTip = false
 
