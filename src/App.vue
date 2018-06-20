@@ -35,11 +35,11 @@
             </div>
             <div class="register__fields-item register__fields-item--short">
               <label >country</label>
-              <v-select v-model="Country" name="country" id="country" :options="['foo','bar']"></v-select>
+              <v-select v-model="country"  name="country" id="country" :options="this.countries"></v-select>
             </div>
             <div class="register__fields-item register__fields-item--short">
               <label>city</label>
-              <v-select v-model="City" name="city" id="city" :options="['city1','city2']"></v-select>
+              <v-select v-model="city"  name="city" id="city" :options="this.cities"></v-select>
             </div>
             <div class="register__fields-item register__fields-item--short">
               <label>date of birth</label>
@@ -59,13 +59,13 @@
     </div>
 
     <!--<img src="./assets/logo.png">-->
-    <div  v-bind="index" v-for='note in notes'>
-      <div>
-        {{ note.text }}
+    <!--<div  v-bind="index" v-for='note in notes'>-->
+      <!--<div>-->
+        <!--{{ note.text }}-->
 
-      </div>
-    </div>
-    <button @click='addNew'>Добавить заметку</button>
+      <!--</div>-->
+    <!--</div>-->
+    <!--<button @click='addNew'>Добавить заметку</button>-->
   </div>
 </template>
 
@@ -78,21 +78,61 @@ Vue.use(Vuex)
 
   const store = new Vuex.Store({
       state: {
-          notes: []
+          notes: [],
+          country: "",
+          city: "",
+          countries: [
+                "Russia",
+                "Italy",
+                "Germany"
+          ],
+          cities: {
+              "Russia": [
+                  "Rostov",
+                  "Krasnodar",
+                  "Taganrog"
+              ],
+              "Italy": [
+                  "Verona",
+                   "Milan",
+                   "Florence"
+              ],
+              "Germany": [
+                  "Berlin",
+                  "Munhen",
+                  "Frankfurt"
+              ]
+          }
+
       },
       actions: {
-          addNote({commit}, note) {
-              commit('ADD_NOTE', note)
+          setCountry({commit}, country) {
+              commit('SET_COUNTRY', country)
+          },
+          setCity({commit}, city) {
+              commit('SET_CITY', city)
           }
       },
       mutations: {
           ADD_NOTE(state, note) {
               state.notes.push(note)
+          },
+          SET_COUNTRY(state, country){
+              state.country = country
+          },
+          SET_CITY(state, city){
+              state.city = city
           }
       },
       getters: {
-          notes(state) {
-              return state.notes
+          countries(state){
+              return state.countries
+          },
+          country(state){
+              return state.country
+          },
+          cities(state){
+              return state.cities
           }
       },
       modules: {}
@@ -104,8 +144,9 @@ export default {
   store,
   data(){
     return{
-        City: "",
-        Country: "",
+        city: "",
+        showCity: false,
+        country: "",
         value: '',
         lang: {
             days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
@@ -119,6 +160,16 @@ export default {
     }
   },
     computed: {
+        countries(){
+            return this.$store.getters.countries
+        },
+        cities(){
+            if(!this.showCity){
+                return []
+            }
+            console.log(this.$store.getters.cities[this.$store.getters.country.text]);
+            return this.$store.getters.cities[this.$store.getters.country.text]
+        },
         notes() {
             return this.$store.getters.notes;
         }
@@ -127,7 +178,26 @@ export default {
         addNew() {
             this.$store.dispatch('addNote', { text: 'новая заметка' })
         }
-    }
+    },
+    watch: {
+        country: function (val) {
+            this.$store.dispatch('setCountry', { text: val })
+
+            if(val !== null){
+                this.showCity = true
+                this.$store.dispatch('setCity', { text: this.$store.getters.cities[val][0] })
+                this.city = this.$store.getters.cities[val][0]
+            }else {
+                this.city = ''
+                this.$store.dispatch('setCity', { text: '' })
+
+            }
+        },
+    },
+
+    mounted: function(){
+        console.log('mounted()', this);
+    },
 }
 </script>
 
