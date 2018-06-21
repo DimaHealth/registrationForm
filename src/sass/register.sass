@@ -1,7 +1,11 @@
+$color-text-base: #343e5c
+$color-text-light: #adb1bd
+
 .register
   padding-top: 40px
   width: 570px
   margin: 0 auto
+  font-family: "Open-Sans", sans-serif
 
   &__head
     background: #fff
@@ -13,3 +17,131 @@
   &__sign
     background: #fff
     padding: 45px 70px
+
+  &__title
+    font-weight: 300
+    color: $color-text-base
+    font-size: 32px
+    margin-bottom: 25px
+    text-align: center
+
+  &__user-fields
+    color: $color-text-base
+    font-weight: 600
+    font-size: 14px
+
+  &__firstname
+    display: inline-block
+
+  &__lastname
+    display: inline-block
+
+  &__login
+    display: inline-block
+    color: $color-text-light
+
+  &__mail
+    margin-top: 5px
+
+  &__fields
+
+  &__fields-row
+    display: flex
+    justify-content: space-between
+    width: 100%
+
+  &__fields-item
+    display: inline-block
+    width: 100%
+    transition: opacity 0.5s
+    margin-bottom: 20px
+
+    .mx-datepicker
+      width: auto
+
+    .dropdown, .mx-input-wrapper
+
+      input
+
+        padding: 21px 13px
+        font-size: 14px
+        box-sizing: border-box
+        font-weight: 600
+
+    .mx-input-wrapper
+       input
+         border-radius: 3px
+         border: 1px solid #d5dce6
+
+    .v-select
+      .dropdown-toggle
+        border-radius: 3px
+        border: 1px solid #d5dce6
+
+      .selected-tag
+        position: absolute
+        font-weight: 600
+        font-family: "Open-Sans",sans-serif
+        margin: 0px
+        top: 8px
+        left: 10px
+
+
+    > input
+      width: 100%
+      border-radius: 3px
+      border: 1px solid #d5dce6
+      padding: 13px
+      font-size: 14px
+      box-sizing: border-box
+      font-weight: 600
+
+      &:focus
+        outline: none
+
+    &--short
+      width: 47%
+
+    &--disabled
+      opacity: 0.5
+      pointer-events: none
+
+    &--error
+
+      input
+        border-color: #ec5b5c
+
+    label
+      font-size: 11px
+      font-weight: 700
+      text-transform: uppercase
+      color: #7a8196
+      display: block
+      margin-bottom: 10px
+
+      span
+        color: #ec5b5c
+        font-size: 11px
+        font-weight: bold
+
+  &__submit
+
+    button
+      margin-top: 71px
+      background-color: #4be1ab
+      width: 100%
+      border-radius: 0px 25px 25px 25px
+      padding: 16px 0px
+      box-shadow: none
+      outline: none
+      border: none
+      font-size: 11px
+      text-transform: uppercase
+      font-weight: bold
+      color: #fff
+      cursor: pointer
+      transition: transform 0.5s
+
+      &:hover
+        transform: scale(1.05)
+
